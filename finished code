@@ -1,0 +1,88 @@
+Imports System
+
+Module Program
+    Sub Main(args As String())
+        Dim num_1, num_2, answer_num As Integer
+        Dim answer_roman, plus_or_minus As String
+        Dim redo As Boolean
+
+        redo = True
+
+        Console.WriteLine("Roman numeral calculator, please enter the two values you wish to add or subtract and the calculator will give you the answer as well as the answer in its numerical form .
+RULES:
+-NUMBERS ENTERED MUST NOT EXCEED 2499
+-ONLY ENTER WHOLE NUMBERS
+-ONLY ADDITION AND SUBTRACTION IS ALLOWED
+-NO NEGATIVE NUMBERS OR ANSWERS EQUAL TO 0 ARE PERMITTED")
+        Do While redo = True
+            Console.WriteLine("Please enter you first number: ")
+            num_1 = Console.ReadLine()
+            If num_1 > 2499 Then
+                Do While num_1 > 2499
+                    Console.WriteLine("The number you have selected is not permitted, please check the rules and make sure the number you have selected is allowed and try again: ")
+                    num_1 = Console.ReadLine()
+                Loop
+            End If
+            Console.WriteLine("+ or -: ")
+            plus_or_minus = Console.ReadLine()
+            If plus_or_minus <> "+" And plus_or_minus <> "-" Then
+                Do While plus_or_minus <> "+" And plus_or_minus <> "-"
+                    Console.WriteLine("Please select either + or - : ")
+                    plus_or_minus = Console.ReadLine()
+                Loop
+            End If
+            Console.WriteLine("Please enter you second number: ")
+            num_2 = Console.ReadLine()
+            If num_2 > 2499 Then
+                Do While num_2 > 2499
+                    Console.WriteLine("The number you have selected is not permitted, please check the rules and make sure the number you have selected is allowed and try again: ")
+                    num_2 = Console.ReadLine()
+                Loop
+            End If
+            If plus_or_minus = "+" Then
+                answer_num = (num_1 + num_2)
+            Else
+                answer_num = (num_1 - num_2)
+            End If
+            If answer_num <= 0 Then
+                Console.WriteLine("The answer is less than or equal to 0, please try different values ")
+                redo = False
+            End If
+
+            Console.WriteLine("Arabic Number: " & answer_num)
+
+            Do While answer_num > 0
+                If answer_num >= 1000 Then
+                    answer_num = (answer_num - 1000)
+                    answer_roman = answer_roman & "M"
+                ElseIf answer_num >= 500 Then
+                    answer_num = (answer_num - 500)
+                    answer_roman = answer_roman & "D"
+
+                ElseIf answer_num >= 100 Then
+                    answer_num = (answer_num - 100)
+                    answer_roman = answer_roman & "C"
+
+                ElseIf answer_num >= 50 Then
+                    answer_num = (answer_num - 50)
+                    answer_roman = answer_roman & "L"
+
+                ElseIf answer_num >= 10 Then
+                    answer_num = (answer_num - 10)
+                    answer_roman = answer_roman & "X"
+
+                ElseIf answer_num >= 5 Then
+                    answer_num = (answer_num - 5)
+                    answer_roman = answer_roman & "V"
+
+                ElseIf answer_num >= 1 Then
+                    answer_num = (answer_num - 1)
+                    answer_roman = answer_roman & "I"
+                End If
+            Loop
+
+            Console.WriteLine("Roman Numeral: " & answer_roman)
+            redo = False
+        Loop
+    End Sub
+End Module
