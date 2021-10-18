@@ -1,0 +1,98 @@
+Imports System
+
+Module Program
+    Sub Main(args As String())
+        'setting the different variables to their said dimentions, this is so we can use them for their intended purpose later on 
+        Dim num_1, num_2, answer_num As Integer
+        Dim answer_roman, plus_or_minus As String
+        Dim redo As Boolean
+        ' using a boolean here and setting it to true allows us to have a key that restarts the program whenever the value is made to be false
+        redo = True
+
+        Console.WriteLine("Roman numeral calculator, please enter the two values you wish to add or subtract and the calculator will give you the answer as well as the answer in its numerical form .
+RULES:
+-NUMBERS ENTERED MUST NOT EXCEED 2499
+-ONLY ENTER WHOLE NUMBERS
+-ONLY ADDITION AND SUBTRACTION IS ALLOWED
+-NO NEGATIVE NUMBERS OR ANSWERS EQUAL TO 0 ARE PERMITTED")
+        ' Here above, I decided to write out the instructions for the user to understand which inputs are permitted and which are not 
+        Do While redo = True
+            Console.WriteLine("Please enter you first number: ")
+            num_1 = Console.ReadLine()
+            If num_1 > 2499 Then
+                Do While num_1 > 2499
+                    Console.WriteLine("The number you have selected is not permitted, please check the rules and make sure the number you have selected is allowed and try again: ")
+                    num_1 = Console.ReadLine()
+                Loop
+            End If
+            ' first if statement is to make sure that the value inputted is compatible and valid, if the input is invalid, the boolean loop will loop until an appropriate answer is submitted thus the loop to close and the code to continue
+            Console.WriteLine("+ or -: ")
+            plus_or_minus = Console.ReadLine()
+            If plus_or_minus <> "+" And plus_or_minus <> "-" Then
+                Do While plus_or_minus <> "+" And plus_or_minus <> "-"
+                    Console.WriteLine("Please select either + or - : ")
+                    plus_or_minus = Console.ReadLine()
+                Loop
+            End If
+            ' second if statement is to make sure that either a + or - is used as these are the only criteras that are permmited and a loop will occur until the output is either a + or -
+            Console.WriteLine("Please enter you second number: ")
+            num_2 = Console.ReadLine()
+            If num_2 > 2499 Then
+                Do While num_2 > 2499
+                    Console.WriteLine("The number you have selected is not permitted, please check the rules and make sure the number you have selected is allowed and try again: ")
+                    num_2 = Console.ReadLine()
+                Loop
+            End If
+            ' the third if statement is similar to the first if statement but is the second value instead of the first 
+            If plus_or_minus = "+" Then
+                answer_num = (num_1 + num_2)
+            Else
+                answer_num = (num_1 - num_2)
+            End If
+            If answer_num <= 0 Then
+                Console.WriteLine("The answer is less than or equal to 0, please try different values ")
+                redo = False
+            End If
+            'the final part of the calculator for the arabic numbers uses an if statement, if + was used the two inputs will be added together and the answer will be presented and stored for conversion to the roman numeral, and vice-versa for the - sign.
+            'However if the answer is <=0, then an error message will show and the program will loop back to the start
+
+            Console.WriteLine("Arabic Number: " & answer_num)
+
+            Do While answer_num > 0
+                If answer_num >= 1000 Then
+                    answer_num = (answer_num - 1000)
+                    answer_roman = answer_roman & "M"
+                ElseIf answer_num >= 500 Then
+                    answer_num = (answer_num - 500)
+                    answer_roman = answer_roman & "D"
+
+                ElseIf answer_num >= 100 Then
+                    answer_num = (answer_num - 100)
+                    answer_roman = answer_roman & "C"
+
+                ElseIf answer_num >= 50 Then
+                    answer_num = (answer_num - 50)
+                    answer_roman = answer_roman & "L"
+
+                ElseIf answer_num >= 10 Then
+                    answer_num = (answer_num - 10)
+                    answer_roman = answer_roman & "X"
+
+                ElseIf answer_num >= 5 Then
+                    answer_num = (answer_num - 5)
+                    answer_roman = answer_roman & "V"
+
+                ElseIf answer_num >= 1 Then
+                    answer_num = (answer_num - 1)
+                    answer_roman = answer_roman & "I"
+                End If
+            Loop
+            'For the roman numeral converter, I have used nested and if statement in a while loop, the answer_num is the answer of the two inputs and from this the answer will pass through the if statement
+            'if the answer meets any of the if critera, then then appropriate amount will be subtracted and the correct numeral will be appended onto the string for the final value
+            ' the loop will continue until there are no more numerals that it can be converted to, hence it will loop till the value is =0
+            Console.WriteLine("Roman Numeral: " & answer_roman)
+            redo = False
+        Loop
+        'the final part of the code is the output for the answers for the user to see what their sums equal to in both roman numeral and arabic number form. Once these have been displayed the boolean becomes false hence meaning that the program closes as the code only runs if redo = True
+    End Sub
+End Module
